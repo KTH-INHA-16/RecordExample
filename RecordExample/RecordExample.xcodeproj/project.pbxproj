@@ -13,6 +13,7 @@
 		D617EB0027E9707A00D0098B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D617EAFF27E9707A00D0098B /* Assets.xcassets */; };
 		D617EB0327E9707A00D0098B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D617EB0127E9707A00D0098B /* LaunchScreen.storyboard */; };
 		D6A54EB627E972790057E419 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A54EB527E972790057E419 /* RecordViewController.swift */; };
+		D6A54EB927E98CAA0057E419 /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A54EB827E98CAA0057E419 /* RecordViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		D617EB0227E9707A00D0098B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D617EB0427E9707A00D0098B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6A54EB527E972790057E419 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		D6A54EB827E98CAA0057E419 /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		D617EAF527E9707900D0098B /* RecordExample */ = {
 			isa = PBXGroup;
 			children = (
+				D6A54EB727E98C9D0057E419 /* ViewModels */,
 				D617EB0A27E970E000D0098B /* ViewControllers */,
 				D617EAF627E9707900D0098B /* AppDelegate.swift */,
 				D617EAF827E9707900D0098B /* SceneDelegate.swift */,
@@ -73,6 +76,14 @@
 				D6A54EB527E972790057E419 /* RecordViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D6A54EB727E98C9D0057E419 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D6A54EB827E98CAA0057E419 /* RecordViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +160,7 @@
 				D6A54EB627E972790057E419 /* RecordViewController.swift in Sources */,
 				D617EAF727E9707900D0098B /* AppDelegate.swift in Sources */,
 				D617EAF927E9707900D0098B /* SceneDelegate.swift in Sources */,
+				D6A54EB927E98CAA0057E419 /* RecordViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
