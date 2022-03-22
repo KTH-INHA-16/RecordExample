@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mUa-Hl-PmL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mUa-Hl-PmL">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,11 +24,20 @@
                                     <action selector="authorityTouchDown:" destination="BYZ-38-t0r" eventType="touchDown" id="7L3-qM-zOX"/>
                                 </connections>
                             </button>
-                            <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Odb-5b-C4N">
+                            <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Odb-5b-C4N">
                                 <rect key="frame" x="182.5" y="761" width="51" height="31"/>
+                                <connections>
+                                    <action selector="recordValueChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="s1W-gS-vvL"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jac-4u-ZOE">
                                 <rect key="frame" x="207" y="154" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hW5-w6-pL2">
+                                <rect key="frame" x="207" y="428.5" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -41,6 +50,8 @@
                             <constraint firstItem="jLB-uH-F7P" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="BFH-gQ-47C"/>
                             <constraint firstItem="Odb-5b-C4N" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Chc-Qn-FPG"/>
                             <constraint firstItem="Jac-4u-ZOE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="110" id="KCE-s1-cBq"/>
+                            <constraint firstItem="hW5-w6-pL2" firstAttribute="centerY" secondItem="jLB-uH-F7P" secondAttribute="centerY" id="QEp-fM-KV9"/>
+                            <constraint firstItem="hW5-w6-pL2" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="SK6-VR-DiH"/>
                             <constraint firstItem="jLB-uH-F7P" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="kQY-4e-CSn"/>
                             <constraint firstItem="Jac-4u-ZOE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="qX0-Yo-T1j"/>
                         </constraints>
@@ -49,6 +60,7 @@
                     <connections>
                         <outlet property="authorityButton" destination="jLB-uH-F7P" id="pTU-iu-57f"/>
                         <outlet property="recordSwitch" destination="Odb-5b-C4N" id="C73-9Y-1et"/>
+                        <outlet property="timeLabel" destination="hW5-w6-pL2" id="QgR-gr-p9d"/>
                         <outlet property="titleLabel" destination="Jac-4u-ZOE" id="76T-e4-gpO"/>
                     </connections>
                 </viewController>
