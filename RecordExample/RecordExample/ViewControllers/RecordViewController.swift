@@ -11,6 +11,7 @@ import AVFoundation
 
 final class RecordViewController: UIViewController {
     private let recordInstance = AVAudioSession.sharedInstance()
+    private var timeTimerCancellable: AnyCancellable?
     private var viewModel = RecordViewModel()
     private var audioRecorder: AVAudioRecorder?
 
@@ -44,7 +45,9 @@ final class RecordViewController: UIViewController {
             configureAudio()
             startRecording()
         } else {
+            timeTimerCancellable?.cancel()
             audioRecorder?.stop()
+            timeLabel.text = "00 : 00 : 00"
         }
     }
     
@@ -54,6 +57,23 @@ final class RecordViewController: UIViewController {
         }
         
         audioRecorder.record()
+        
+        viewModel.set(date: Date())
+        
+        timeTimerCancellable = Timer.publish(every: 1, tolerance: nil, on: .current, in: .default, options: nil)
+            .autoconnect()
+            .sink { [weak self] _ in
+                guard let self = self else {
+                    return
+                }
+                
+                let interval = Int(Date().timeIntervalSince(self.viewModel.date))
+                let second = String(interval % 60).count == 1 ? "0\(String(interval % 60))" : "\(String(interval % 60))"
+                let minute = String(interval / 60).count == 1 ? "0\(String(interval / 60))" : "\(String(interval / 60))"
+                let hours = String(interval / 3600).count == 1 ? "0\(String(interval / 3600))" : "\(String(interval / 3600))"
+                
+                self.timeLabel.text = "\(hours) : \(minute) : \(second)"
+            }
     }
     
     private func configureAudio() {
@@ -79,6 +99,7 @@ final class RecordViewController: UIViewController {
         let title = permission ? "아래의 토글 버튼을 전환하면 녹음이 시작됩니다.\n(5분마다 녹음기록이 저장됩니다.)" : "녹음을 하기 위해서는 권한이 필요합니다."
         
         titleLabel.text = title
+        timeLabel.text = permission ? "00 : 00 : 00" : nil
         authorityButton.isHidden = permission
         recordSwitch.isHidden = !permission
     }
