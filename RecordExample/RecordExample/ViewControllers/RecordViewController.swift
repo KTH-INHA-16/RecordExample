@@ -11,6 +11,7 @@ import AVFoundation
 
 final class RecordViewController: UIViewController {
     private let recordInstance = AVAudioSession.sharedInstance()
+    private var cutTimerCancellable: AnyCancellable?
     private var timeTimerCancellable: AnyCancellable?
     private var viewModel = RecordViewModel()
     private var audioRecorder: AVAudioRecorder?
@@ -46,6 +47,7 @@ final class RecordViewController: UIViewController {
             startRecording()
         } else {
             timeTimerCancellable?.cancel()
+            cutTimerCancellable?.cancel()
             audioRecorder?.stop()
             timeLabel.text = "00 : 00 : 00"
         }
@@ -57,8 +59,6 @@ final class RecordViewController: UIViewController {
         }
         
         audioRecorder.record()
-        
-        viewModel.set(date: Date())
         
         timeTimerCancellable = Timer.publish(every: 1, tolerance: nil, on: .current, in: .default, options: nil)
             .autoconnect()
@@ -73,6 +73,17 @@ final class RecordViewController: UIViewController {
                 let hours = String(interval / 3600).count == 1 ? "0\(String(interval / 3600))" : "\(String(interval / 3600))"
                 
                 self.timeLabel.text = "\(hours) : \(minute) : \(second)"
+            }
+        
+         cutTimerCancellable = Timer.publish(every: 20, tolerance: nil, on: .current, in: .default, options: nil)
+            .autoconnect()
+            .sink { [weak self] _ in
+                guard let self = self else {
+                    return
+                }
+                
+                self.audioRecorder?.stop()
+                self.startRecording()
             }
     }
     
@@ -93,6 +104,7 @@ final class RecordViewController: UIViewController {
         audioRecorder?.delegate = self
         audioRecorder?.isMeteringEnabled = true
         audioRecorder?.prepareToRecord()
+        viewModel.set(date: Date())
     }
     
     private func configureUI(_ permission: Bool) {
@@ -121,6 +133,6 @@ final class RecordViewController: UIViewController {
 
 extension RecordViewController: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        NSLog("\(flag)")
+        NSLog("\(flag), \(Date().description)")
     }
 }
