@@ -8,5 +8,9 @@
 import Foundation
 
 final class RecordViewModel {
+    private(set) var date = Date()
     
+    func set(date: Date) {
+        self.date = date
+    }
 }
