@@ -12,6 +12,7 @@ import AVFoundation
 
 final class AudioRecorder: NSObject, ObservableObject {
     private(set) var audioRecorder: AVAudioRecorder?
+    private var cancellable: AnyCancellable?
     let objectWillChange = PassthroughSubject<AudioRecorder, Never>()
     @Published var authority = false
     @Published var recording = false {
@@ -20,6 +21,7 @@ final class AudioRecorder: NSObject, ObservableObject {
             if recording {
                 startRecord()
             } else {
+                cancellable?.cancel()
                 stopRecord()
             }
         }
@@ -33,6 +35,12 @@ final class AudioRecorder: NSObject, ObservableObject {
     private func startRecord() {
         configureRecoder()
         audioRecorder?.record()
+        cancellable = Timer.publish(every: 20, tolerance: nil, on: .main, in: .default, options: nil)
+            .autoconnect()
+            .sink { [unowned self] _ in
+                self.stopRecord()
+                self.startRecord()
+            }
     }
     
     private func stopRecord() {
