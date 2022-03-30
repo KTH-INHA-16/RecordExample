@@ -16,6 +16,10 @@
 		3B0C87EC27EBEE50005E7537 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C87EB27EBEE50005E7537 /* AudioRecorder.swift */; };
 		3B0C87EF27EBF4E4005E7537 /* RecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C87EE27EBF4E4005E7537 /* RecordModel.swift */; };
 		3B39EF2827EC34900084FAAC /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B39EF2727EC34900084FAAC /* RecordViewModel.swift */; };
+		3BCE2F3927F2D9E700788007 /* RecordModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F3727F2D9E700788007 /* RecordModel.xcdatamodeld */; };
+		3BCE2F3C27F2DA1D00788007 /* Record+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F3A27F2DA1D00788007 /* Record+CoreDataClass.swift */; };
+		3BCE2F3D27F2DA1D00788007 /* Record+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F3B27F2DA1D00788007 /* Record+CoreDataProperties.swift */; };
+		3BCE2F4227F2DAC100788007 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F4127F2DAC100788007 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +33,10 @@
 		3B0C87EB27EBEE50005E7537 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		3B0C87EE27EBF4E4005E7537 /* RecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModel.swift; sourceTree = "<group>"; };
 		3B39EF2727EC34900084FAAC /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
+		3BCE2F3827F2D9E700788007 /* RecordModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RecordModel.xcdatamodel; sourceTree = "<group>"; };
+		3BCE2F3A27F2DA1D00788007 /* Record+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Record+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3BCE2F3B27F2DA1D00788007 /* Record+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Record+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3BCE2F4127F2DAC100788007 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +69,7 @@
 		3B0C87D627EBE9D1005E7537 /* RecordSample */ = {
 			isa = PBXGroup;
 			children = (
-				3B39EF2627EC34850084FAAC /* ViewModels */,
+				3BCE2F3F27F2DA3100788007 /* CoreData */,
 				3B0C87ED27EBF4CC005E7537 /* Models */,
 				3B0C87EA27EBEE3E005E7537 /* Audio */,
 				3B0C87E927EBEC3F005E7537 /* Views */,
@@ -107,11 +115,23 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		3B39EF2627EC34850084FAAC /* ViewModels */ = {
+		3BCE2F3F27F2DA3100788007 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				3BCE2F4027F2DAAC00788007 /* Record */,
+				3BCE2F4127F2DAC100788007 /* DataManager.swift */,
 			);
-			path = ViewModels;
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		3BCE2F4027F2DAAC00788007 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				3BCE2F3A27F2DA1D00788007 /* Record+CoreDataClass.swift */,
+				3BCE2F3B27F2DA1D00788007 /* Record+CoreDataProperties.swift */,
+				3BCE2F3727F2D9E700788007 /* RecordModel.xcdatamodeld */,
+			);
+			path = Record;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,11 +204,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BCE2F3D27F2DA1D00788007 /* Record+CoreDataProperties.swift in Sources */,
+				3BCE2F3927F2D9E700788007 /* RecordModel.xcdatamodeld in Sources */,
 				3B0C87E827EBEC3C005E7537 /* ListView.swift in Sources */,
 				3B39EF2827EC34900084FAAC /* RecordViewModel.swift in Sources */,
+				3BCE2F3C27F2DA1D00788007 /* Record+CoreDataClass.swift in Sources */,
 				3B0C87DA27EBE9D1005E7537 /* ContentView.swift in Sources */,
 				3B0C87EF27EBF4E4005E7537 /* RecordModel.swift in Sources */,
 				3B0C87E627EBEC1C005E7537 /* RecordView.swift in Sources */,
+				3BCE2F4227F2DAC100788007 /* DataManager.swift in Sources */,
 				3B0C87D827EBE9D1005E7537 /* RecordSampleApp.swift in Sources */,
 				3B0C87EC27EBEE50005E7537 /* AudioRecorder.swift in Sources */,
 			);
@@ -395,6 +419,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3BCE2F3727F2D9E700788007 /* RecordModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3BCE2F3827F2D9E700788007 /* RecordModel.xcdatamodel */,
+			);
+			currentVersion = 3BCE2F3827F2D9E700788007 /* RecordModel.xcdatamodel */;
+			path = RecordModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3B0C87CC27EBE9D1005E7537 /* Project object */;
 }
