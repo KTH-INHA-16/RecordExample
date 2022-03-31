@@ -42,6 +42,14 @@ final class DataManager: ObservableObject {
                 fatalError(error.localizedDescription)
             }
         }
-        
+    }
+    
+    func fetch() -> [Record] {
+        do {
+            let context = try container.viewContext.fetch(Record.fetchRequest())
+            return context
+        } catch let error {
+            fatalError(error.localizedDescription)
+        }
     }
 }

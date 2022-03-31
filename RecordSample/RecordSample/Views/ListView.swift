@@ -8,13 +8,32 @@
 import SwiftUI
 
 struct ListView: View {
+    @ObservedObject var viewModel: ListViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            List(viewModel.list) { model in
+                NavigationLink {
+                    PlayView()
+                } label: {
+                    ListRowView(model: model)
+                        .frame(height: 50)
+                }
+            }
+            .onAppear {
+                viewModel.fetch()
+            }
+            .edgesIgnoringSafeArea(.leading)
+            .edgesIgnoringSafeArea(.trailing)
+            .listStyle(.grouped)
+            .navigationTitle("Records")
+        }
+
     }
 }
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        ListView()
+        ListView(viewModel: ListViewModel())
     }
 }

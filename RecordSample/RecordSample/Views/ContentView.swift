@@ -16,7 +16,7 @@ struct ContentView: View {
                     Text("Record")
                 }
             
-            ListView()
+            ListView(viewModel: ListViewModel())
                 .tabItem {
                     Image(systemName: "list.dash")
                     Text("List")
