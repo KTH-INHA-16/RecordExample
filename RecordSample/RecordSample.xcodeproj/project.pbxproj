@@ -24,6 +24,8 @@
 		3BCE2F3C27F2DA1D00788007 /* Record+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F3A27F2DA1D00788007 /* Record+CoreDataClass.swift */; };
 		3BCE2F3D27F2DA1D00788007 /* Record+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F3B27F2DA1D00788007 /* Record+CoreDataProperties.swift */; };
 		3BCE2F4227F2DAC100788007 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F4127F2DAC100788007 /* DataManager.swift */; };
+		D691622D27FBD25C00B2F88E /* PlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D691622C27FBD25C00B2F88E /* PlayViewModel.swift */; };
+		D691622F27FBDFA000B2F88E /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D691622E27FBDFA000B2F88E /* AudioPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		3BCE2F3A27F2DA1D00788007 /* Record+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Record+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3BCE2F3B27F2DA1D00788007 /* Record+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Record+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3BCE2F4127F2DAC100788007 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		D691622C27FBD25C00B2F88E /* PlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewModel.swift; sourceTree = "<group>"; };
+		D691622E27FBDFA000B2F88E /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				3B0C87EB27EBEE50005E7537 /* AudioRecorder.swift */,
+				D691622E27FBDFA000B2F88E /* AudioPlayer.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 			children = (
 				3B39EF2727EC34900084FAAC /* RecordViewModel.swift */,
 				3BBB641827F3F5C8006B5969 /* ListViewModel.swift */,
+				D691622C27FBD25C00B2F88E /* PlayViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -224,6 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D691622D27FBD25C00B2F88E /* PlayViewModel.swift in Sources */,
 				3BCE2F3D27F2DA1D00788007 /* Record+CoreDataProperties.swift in Sources */,
 				3BBB641D27F54A55006B5969 /* ListRowView.swift in Sources */,
 				3BCE2F3927F2D9E700788007 /* RecordModel.xcdatamodeld in Sources */,
@@ -233,6 +240,7 @@
 				3B39EF2827EC34900084FAAC /* RecordViewModel.swift in Sources */,
 				3BCE2F3C27F2DA1D00788007 /* Record+CoreDataClass.swift in Sources */,
 				3B0C87DA27EBE9D1005E7537 /* ContentView.swift in Sources */,
+				D691622F27FBDFA000B2F88E /* AudioPlayer.swift in Sources */,
 				3B0C87EF27EBF4E4005E7537 /* RecordModel.swift in Sources */,
 				3B0C87E627EBEC1C005E7537 /* RecordView.swift in Sources */,
 				3BCE2F4227F2DAC100788007 /* DataManager.swift in Sources */,
@@ -369,7 +377,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RecordSample/Preview Content\"";
-				DEVELOPMENT_TEAM = TGR2SR2JNL;
+				DEVELOPMENT_TEAM = M49GZVCJ3B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "녹음을 위해 권한이 필요합니다";
@@ -399,7 +407,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RecordSample/Preview Content\"";
-				DEVELOPMENT_TEAM = TGR2SR2JNL;
+				DEVELOPMENT_TEAM = M49GZVCJ3B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "녹음을 위해 권한이 필요합니다";

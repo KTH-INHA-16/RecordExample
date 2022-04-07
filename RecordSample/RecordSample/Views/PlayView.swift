@@ -8,13 +8,19 @@
 import SwiftUI
 
 struct PlayView: View {
+    @State var num: Float = 0.0
+    @ObservedObject var viewModel: PlayViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Slider(value: $num)
+                .padding(.horizontal, 50.0)
+        }
     }
 }
 
 struct PlayView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayView()
+        PlayView(viewModel: PlayViewModel(fileName: ""))
     }
 }
