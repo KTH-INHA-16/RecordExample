@@ -24,6 +24,7 @@
 		3BCE2F3C27F2DA1D00788007 /* Record+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F3A27F2DA1D00788007 /* Record+CoreDataClass.swift */; };
 		3BCE2F3D27F2DA1D00788007 /* Record+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F3B27F2DA1D00788007 /* Record+CoreDataProperties.swift */; };
 		3BCE2F4227F2DAC100788007 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F4127F2DAC100788007 /* DataManager.swift */; };
+		D65BD4B128053CDE00501B8E /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D65BD4B028053CDE00501B8E /* music.mp3 */; };
 		D691622D27FBD25C00B2F88E /* PlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D691622C27FBD25C00B2F88E /* PlayViewModel.swift */; };
 		D691622F27FBDFA000B2F88E /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D691622E27FBDFA000B2F88E /* AudioPlayer.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,7 @@
 		3BCE2F3A27F2DA1D00788007 /* Record+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Record+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3BCE2F3B27F2DA1D00788007 /* Record+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Record+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3BCE2F4127F2DAC100788007 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		D65BD4B028053CDE00501B8E /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		D691622C27FBD25C00B2F88E /* PlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewModel.swift; sourceTree = "<group>"; };
 		D691622E27FBDFA000B2F88E /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +118,7 @@
 		3B0C87EA27EBEE3E005E7537 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				D65BD4B028053CDE00501B8E /* music.mp3 */,
 				3B0C87EB27EBEE50005E7537 /* AudioRecorder.swift */,
 				D691622E27FBDFA000B2F88E /* AudioPlayer.swift */,
 			);
@@ -218,6 +221,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D65BD4B128053CDE00501B8E /* music.mp3 in Resources */,
 				3B0C87DF27EBE9D3005E7537 /* Preview Assets.xcassets in Resources */,
 				3B0C87DC27EBE9D3005E7537 /* Assets.xcassets in Resources */,
 			);
