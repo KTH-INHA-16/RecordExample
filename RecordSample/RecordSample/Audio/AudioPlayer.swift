@@ -12,9 +12,12 @@ import SwiftUI
 
 final class AudioPlayer: NSObject, ObservableObject {
     private(set) var audioPlayer: AVAudioPlayer?
+    private var cancellable: Cancellable?
+    var isTaped: Bool = false
+    @Published var time: String = "00 : 00 / 00 : 00"
     @Published var progress: Double = 0.0
     @Published var isPlaying: Bool = false
-    var duration: Double = 0.0
+    var duration: Double = 0.01
     
     override init() {
         super.init()
@@ -31,23 +34,47 @@ final class AudioPlayer: NSObject, ObservableObject {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.prepareToPlay()
             audioPlayer?.volume = 1.0
-            duration = audioPlayer?.duration ?? 0.0
+            duration = audioPlayer?.duration ?? 0.01
         } catch {
             print(error.localizedDescription)
         }
+        
+        cancellable = Timer.publish(every: 1, on: .main, in: .default)
+            .autoconnect()
+            .sink { [unowned self] _ in
+                if isTaped {
+                    self.time = "\(self.convert(time: Int(self.progress * self.duration))) / \(self.convert(time: Int(self.duration)))"
+                } else {
+                    self.time = "\(self.convert(time: Int(self.audioPlayer?.currentTime ?? 0))) / \(self.convert(time: Int(self.duration)))"
+                    self.progress = self.audioPlayer?.currentTime ?? 0 / self.duration
+                }
+                print(self.duration, self.audioPlayer?.currentTime ?? 0, (self.audioPlayer?.currentTime ?? 0) / self.duration, self.progress)
+            }
+    }
+    
+    func disappear() {
+        cancellable?.cancel()
     }
     
     func play() {
-        
         isPlaying.toggle()
         
         if isPlaying {
-            print("play")
             audioPlayer?.play()
         } else {
-            print("pause")
             audioPlayer?.pause()
         }
-        print(audioPlayer?.isPlaying)
+    }
+    
+    func update() {
+        let current = duration * progress
+        time = "\(convert(time: Int(current))) / \(convert(time: Int(duration)))"
+    }
+    
+    private func convert(time: Int) -> String {
+        let seconds = String(Int(time) % 60).count == 1 ? "0\(String(Int(time) % 60))" : "\(String(Int(time) % 60))"
+        let minutes = String(Int(time) / 60).count == 1 ? "0\(String(Int(time) / 60))" : "\(String(Int(time) / 60))"
+        
+        return "\(minutes) : \(seconds)"
     }
 }

@@ -8,16 +8,19 @@
 import SwiftUI
 
 struct PlayView: View {
-    @State var num: Float = 0.0
     @ObservedObject var viewModel: PlayViewModel
     @ObservedObject var player = AudioPlayer()
     
     var body: some View {
         VStack {
             
-            Text("33")
+            Text(player.time)
+                .onChange(of: player.progress, perform: { _ in
+                    player.update()
+                })
             
             Slider(value: $player.progress, in: 0...1, onEditingChanged: { _ in
+                player.isTaped.toggle()
                 let targetTime = player.duration * player.progress
                 player.audioPlayer?.currentTime = targetTime
             })
@@ -26,7 +29,7 @@ struct PlayView: View {
             Button(action: {
                 player.play()
             }, label: {
-                Image(systemName: player.isPlaying ? "play" : "pause")
+                Image(systemName: player.isPlaying ? "pause" : "play")
                     .frame(width: 50, height: 50, alignment: .center)
                     .foregroundColor(.orange)
                     .clipShape(Circle())
@@ -37,6 +40,9 @@ struct PlayView: View {
         }
         .onAppear {
             player.load(fileName: viewModel.fileName)
+        }
+        .onDisappear {
+            player.disappear()
         }
         .navigationTitle(viewModel.fileName)
         .navigationBarTitleDisplayMode(.inline)
