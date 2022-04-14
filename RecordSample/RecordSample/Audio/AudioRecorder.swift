@@ -38,7 +38,7 @@ final class AudioRecorder: NSObject, ObservableObject {
     private func startRecord() {
         configureRecoder()
         audioRecorder?.record()
-        cancellable = Timer.publish(every: 20, tolerance: nil, on: .main, in: .default, options: nil)
+        cancellable = Timer.publish(every: 60*5, tolerance: nil, on: .main, in: .default, options: nil)
             .autoconnect()
             .sink { [unowned self] _ in
                 self.stopRecord()
@@ -88,6 +88,5 @@ final class AudioRecorder: NSObject, ObservableObject {
 
 extension AudioRecorder: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        print(flag, Date())
     }
 }
