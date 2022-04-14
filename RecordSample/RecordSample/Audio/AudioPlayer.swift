@@ -24,14 +24,13 @@ final class AudioPlayer: NSObject, ObservableObject {
     }
     
     func load(fileName: String) {
-        guard var directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first, let url = Bundle.main.url(forResource: "music", withExtension: "mp3") else {
+        guard var directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return
         }
         directoryURL.appendPathComponent(fileName)
         
         do {
-            print(directoryURL)
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer = try AVAudioPlayer(contentsOf: directoryURL)
             audioPlayer?.prepareToPlay()
             audioPlayer?.volume = 1.0
             duration = audioPlayer?.duration ?? 0.01
