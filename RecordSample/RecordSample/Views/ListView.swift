@@ -14,7 +14,7 @@ struct ListView: View {
         NavigationView {
             List(viewModel.list) { model in
                 NavigationLink {
-                    PlayView(viewModel: PlayViewModel(fileName: model.title))
+                    PlayView(player: AudioPlayer(fileName: model.title))
                 } label: {
                     ListRowView(model: model)
                         .frame(height: 50)

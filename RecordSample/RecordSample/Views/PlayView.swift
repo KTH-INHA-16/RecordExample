@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct PlayView: View {
-    @ObservedObject var viewModel: PlayViewModel
-    @ObservedObject var player = AudioPlayer()
+    @ObservedObject var player = AudioPlayer(fileName: "")
     
     var body: some View {
         VStack {
@@ -41,19 +40,19 @@ struct PlayView: View {
                     }
             })
         }
-        .onAppear {
-            player.load(fileName: viewModel.fileName)
+        .onAppear{
+            player.publish()
         }
         .onDisappear {
-            player.disappear()
+            player.cancel()
         }
-        .navigationTitle(viewModel.fileName)
+        .navigationTitle(player.fileName)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct PlayView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayView(viewModel: PlayViewModel(fileName: ""))
+        PlayView(player: AudioPlayer(fileName: ""))
     }
 }

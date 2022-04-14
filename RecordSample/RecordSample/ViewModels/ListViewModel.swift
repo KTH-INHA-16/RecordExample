@@ -16,8 +16,6 @@ final class ListViewModel: ObservableObject {
         fetch()
     }
     
-    
-    
     func fetch() {
         guard let directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return
@@ -34,8 +32,6 @@ final class ListViewModel: ObservableObject {
             
             return ListModel(title: title, duration: minutes+" : "+seconds)
         }
-        
-        print(list)
     }
     
 }

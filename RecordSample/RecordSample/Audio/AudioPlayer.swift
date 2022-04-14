@@ -14,30 +14,19 @@ final class AudioPlayer: NSObject, ObservableObject {
     private(set) var audioPlayer: AVAudioPlayer?
     private var cancellable: Cancellable?
     var isTaped: Bool = false
+    @Published var fileName: String
     @Published var time: String = "00 : 00 / 00 : 00"
     @Published var progress: Double = 0.0
     @Published var isPlaying: Bool = false
     @Published var duration: Double = 0.01
     
-    override init() {
+    init(fileName: String) {
+        self.fileName = fileName
         super.init()
+        load()
     }
     
-    func load(fileName: String) {
-        guard var directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            return
-        }
-        directoryURL.appendPathComponent(fileName)
-        
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: directoryURL)
-            audioPlayer?.prepareToPlay()
-            audioPlayer?.volume = 1.0
-            duration = audioPlayer?.duration ?? 0.01
-        } catch {
-            print(error.localizedDescription)
-        }
-        
+    func publish() {
         cancellable = Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()
             .sink { [unowned self] _ in
@@ -50,7 +39,7 @@ final class AudioPlayer: NSObject, ObservableObject {
             }
     }
     
-    func disappear() {
+    func cancel() {
         cancellable?.cancel()
     }
     
@@ -74,5 +63,21 @@ final class AudioPlayer: NSObject, ObservableObject {
         let minutes = String(Int(time) / 60).count == 1 ? "0\(String(Int(time) / 60))" : "\(String(Int(time) / 60))"
         
         return "\(minutes) : \(seconds)"
+    }
+    
+    private func load() {
+        guard var directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+        directoryURL.appendPathComponent(fileName)
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: directoryURL)
+            audioPlayer?.prepareToPlay()
+            audioPlayer?.volume = 1.0
+            duration = audioPlayer?.duration ?? 0.01
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
