@@ -17,7 +17,7 @@ final class AudioPlayer: NSObject, ObservableObject {
     @Published var time: String = "00 : 00 / 00 : 00"
     @Published var progress: Double = 0.0
     @Published var isPlaying: Bool = false
-    var duration: Double = 0.01
+    @Published var duration: Double = 0.01
     
     override init() {
         super.init()
@@ -42,13 +42,12 @@ final class AudioPlayer: NSObject, ObservableObject {
         cancellable = Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()
             .sink { [unowned self] _ in
-                if isTaped {
+                if self.isTaped {
                     self.time = "\(self.convert(time: Int(self.progress * self.duration))) / \(self.convert(time: Int(self.duration)))"
                 } else {
                     self.time = "\(self.convert(time: Int(self.audioPlayer?.currentTime ?? 0))) / \(self.convert(time: Int(self.duration)))"
-                    self.progress = self.audioPlayer?.currentTime ?? 0 / self.duration
+                    self.progress = (self.audioPlayer?.currentTime ?? 0) / self.duration
                 }
-                print(self.duration, self.audioPlayer?.currentTime ?? 0, (self.audioPlayer?.currentTime ?? 0) / self.duration, self.progress)
             }
     }
     

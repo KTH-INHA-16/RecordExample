@@ -21,8 +21,11 @@ struct PlayView: View {
             
             Slider(value: $player.progress, in: 0...1, onEditingChanged: { _ in
                 player.isTaped.toggle()
-                let targetTime = player.duration * player.progress
-                player.audioPlayer?.currentTime = targetTime
+                
+                if !player.isTaped {
+                    let targetTime = player.duration * player.progress
+                    player.audioPlayer?.currentTime = targetTime
+                }
             })
             .padding(.all, 50.0)
             
