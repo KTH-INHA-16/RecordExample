@@ -34,4 +34,19 @@ final class ListViewModel: ObservableObject {
         }.reversed()
     }
     
+    func delete(offset: Int?) {
+        guard let offset = offset, var directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+        
+        directoryURL.appendPathComponent(list[offset].id)
+        print(offset, directoryURL.absoluteURL)
+        
+        do {
+            try FileManager.default.removeItem(at: directoryURL)
+            list.remove(at: offset)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }

@@ -33,7 +33,7 @@ struct ListView: View {
     }
     
     func removeRows(at offsets: IndexSet) {
-        print(offsets.first)
+        viewModel.delete(offset: offsets.first)
     }
 }
 
