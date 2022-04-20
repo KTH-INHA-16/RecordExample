@@ -12,13 +12,15 @@ struct ListView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.list) { model in
-                NavigationLink {
-                    PlayView(player: AudioPlayer(fileName: model.title))
-                } label: {
-                    ListRowView(model: model)
-                        .frame(height: 50)
-                }
+            List {
+                ForEach(viewModel.list, id: \.id) { model in
+                    NavigationLink {
+                        PlayView(player: AudioPlayer(fileName: model.title))
+                    } label: {
+                        ListRowView(model: model)
+                            .frame(height: 50)
+                    }
+                }.onDelete(perform: removeRows)
             }
             .onAppear {
                 viewModel.fetch()
@@ -28,7 +30,10 @@ struct ListView: View {
             .listStyle(.grouped)
             .navigationTitle("Records")
         }
-
+    }
+    
+    func removeRows(at offsets: IndexSet) {
+        print(offsets.first)
     }
 }
 

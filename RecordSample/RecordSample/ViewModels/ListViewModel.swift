@@ -31,7 +31,7 @@ final class ListViewModel: ObservableObject {
             let minutes: String = "\(Int(duration) / 60)".count == 1 ? "0\(Int(duration) / 60)" : "\(Int(duration) / 60)"
             
             return ListModel(title: title, duration: minutes+" : "+seconds)
-        }
+        }.reversed()
     }
     
 }
