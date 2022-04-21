@@ -11,7 +11,8 @@ import Combine
 import AVFoundation
 
 final class AudioRecorder: NSObject, ObservableObject {
-    private(set) var audioRecorder: AVAudioRecorder?
+    private var audioEngine: AVAudioEngine?
+    private var mixerNode: AVAudioMixerNode?
     private var cancellable: AnyCancellable?
     private var fileName: String
     let dataManager = DataManager()
@@ -21,10 +22,10 @@ final class AudioRecorder: NSObject, ObservableObject {
         didSet {
             objectWillChange.send(self)
             if recording {
-                startRecord()
+                startRecording()
             } else {
                 cancellable?.cancel()
-                stopRecord()
+                stopRecording()
             }
         }
     }
@@ -32,58 +33,83 @@ final class AudioRecorder: NSObject, ObservableObject {
     override init() {
         fileName = ""
         super.init()
-        authoritySetUp()
+        configureSession()
+        configureEngine()
     }
     
-    private func startRecord() {
-        configureRecoder()
-        audioRecorder?.record()
-        cancellable = Timer.publish(every: 60*5, tolerance: nil, on: .main, in: .default, options: nil)
-            .autoconnect()
-            .sink { [unowned self] _ in
-                self.stopRecord()
-                self.startRecord()
+    func configureSession() {
+        let session = AVAudioSession.sharedInstance()
+        session.requestRecordPermission { [unowned self] result in
+            switch result {
+            case true:
+                do {
+                    try session.setCategory(.playAndRecord)
+                    try session.setActive(result, options: .notifyOthersOnDeactivation)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            case false:
+                print(result)
             }
-    }
-    
-    private func stopRecord() {
-        dataManager.save(attributes: ["file":fileName], type: "Record")
-        audioRecorder?.stop()
-    }
-    
-    private func authoritySetUp() {
-        let recordInstance = AVAudioSession.sharedInstance()
-        do {
-            try recordInstance.setCategory(.record, mode: .measurement)
-            try recordInstance.setActive(true)
-            recordInstance.requestRecordPermission { [unowned self] permission in
-                self.authority = permission
-            }
-        } catch {
-            NSLog(error.localizedDescription)
+            self.authority = result
         }
     }
     
-    private func configureRecoder() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let date = dateFormatter.string(from: Date())
+    func configureEngine() {
+        audioEngine = AVAudioEngine()
+        mixerNode = AVAudioMixerNode()
         
-        let audioFileName = date + ".m4a"
-        fileName = audioFileName
-        guard var directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+        guard let audioEngine = audioEngine, let mixerNode = mixerNode else {
             return
         }
-        directoryURL.appendPathComponent(audioFileName)
-        let recorderSetting: [String:Any] = [ AVFormatIDKey: NSNumber(value: kAudioFormatMPEG4AAC as UInt32),
-                                              AVSampleRateKey: 44100.0,
-                                              AVNumberOfChannelsKey: 2 ]
-        audioRecorder = try? AVAudioRecorder(url: directoryURL, settings: recorderSetting)
-        audioRecorder?.delegate = self
-        audioRecorder?.isMeteringEnabled = true
-        audioRecorder?.prepareToRecord()
+
+        
+        mixerNode.volume = 0
+        audioEngine.attach(mixerNode)
+        
+        configureNodes()
+        
+        audioEngine.prepare()
     }
     
+    func startRecording() {
+        guard let mixerNode = mixerNode, let audioEngine = audioEngine else {
+            return
+        }
+
+        let tapNode: AVAudioNode = mixerNode
+        let format = tapNode.outputFormat(forBus: 0)
+        
+        tapNode.installTap(onBus: 0, bufferSize: 4096, format: format) { buffer, time in
+            print(buffer, time)
+        }
+        
+        do {
+            try audioEngine.start()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func stopRecording() {
+        mixerNode?.removeTap(onBus: 0)
+        
+        audioEngine?.stop()
+    }
+    
+    private func configureNodes() {
+        guard let audioEngine = audioEngine, let mixerNode = mixerNode else {
+            return
+        }
+        
+        let inputNode = audioEngine.inputNode
+        let inputFormat = inputNode.outputFormat(forBus: 0)
+        audioEngine.connect(inputNode, to: mixerNode, format: inputFormat)
+        
+        let mainMixerNode = audioEngine.mainMixerNode
+        let mixerFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 1, interleaved: false)
+        audioEngine.connect(mixerNode, to: mainMixerNode, format: mixerFormat)
+    }
 }
 
 extension AudioRecorder: AVAudioRecorderDelegate {
