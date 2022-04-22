@@ -73,18 +73,31 @@ final class AudioRecorder: NSObject, ObservableObject {
     }
     
     func startRecording() {
-        guard let mixerNode = mixerNode, let audioEngine = audioEngine else {
+        guard let mixerNode = mixerNode, let audioEngine = audioEngine, let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return
         }
 
         let tapNode: AVAudioNode = mixerNode
         let format = tapNode.outputFormat(forBus: 0)
-        
-        tapNode.installTap(onBus: 0, bufferSize: 4096, format: format) { buffer, time in
-            print(buffer, time)
-        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMddhhmmssSSS"
+        var dateString = dateFormatter.string(from: Date())
         
         do {
+            var file = try AVAudioFile(forWriting: fileURL.appendingPathComponent(dateString), settings: format.settings)
+            dataManager.save(attributes: ["file": dateString], type: "Record")
+            tapNode.installTap(onBus: 0, bufferSize: 4096, format: format) { buffer, time in
+                print(buffer.frameLength, time, file.length, 48000 * 10)
+                if file.length >= (48000 * 10) {
+                    do {
+                        dateString = dateFormatter.string(from: Date())
+                        file = try AVAudioFile(forWriting: fileURL.appendingPathComponent(dateString), settings: format.settings)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+                try? file.write(from: buffer)
+            }
             try audioEngine.start()
         } catch {
             print(error.localizedDescription)
@@ -103,10 +116,12 @@ final class AudioRecorder: NSObject, ObservableObject {
         }
         
         let inputNode = audioEngine.inputNode
-        let inputFormat = inputNode.outputFormat(forBus: 0)
+        let inputFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 1, interleaved: false)
+        //let inputFormat = inputNode.outputFormat(forBus: 0)
         audioEngine.connect(inputNode, to: mixerNode, format: inputFormat)
         
         let mainMixerNode = audioEngine.mainMixerNode
+
         let mixerFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 1, interleaved: false)
         audioEngine.connect(mixerNode, to: mainMixerNode, format: mixerFormat)
     }

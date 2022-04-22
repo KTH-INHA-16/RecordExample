@@ -27,6 +27,7 @@
 		D65BD4B128053CDE00501B8E /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D65BD4B028053CDE00501B8E /* music.mp3 */; };
 		D691622D27FBD25C00B2F88E /* PlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D691622C27FBD25C00B2F88E /* PlayViewModel.swift */; };
 		D691622F27FBDFA000B2F88E /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D691622E27FBDFA000B2F88E /* AudioPlayer.swift */; };
+		D6CB38DA2812721D0022D025 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB38D92812721D0022D025 /* UIApplication+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		D65BD4B028053CDE00501B8E /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		D691622C27FBD25C00B2F88E /* PlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewModel.swift; sourceTree = "<group>"; };
 		D691622E27FBDFA000B2F88E /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		D6CB38D92812721D0022D025 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 		3B0C87D627EBE9D1005E7537 /* RecordSample */ = {
 			isa = PBXGroup;
 			children = (
+				D6CB38D82812720A0022D025 /* Extensions */,
 				3BBB641627F3F5B0006B5969 /* ViewModels */,
 				3BCE2F3F27F2DA3100788007 /* CoreData */,
 				3B0C87ED27EBF4CC005E7537 /* Models */,
@@ -163,6 +166,14 @@
 			path = Record;
 			sourceTree = "<group>";
 		};
+		D6CB38D82812720A0022D025 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D6CB38D92812721D0022D025 /* UIApplication+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -238,6 +249,7 @@
 				3BCE2F3D27F2DA1D00788007 /* Record+CoreDataProperties.swift in Sources */,
 				3BBB641D27F54A55006B5969 /* ListRowView.swift in Sources */,
 				3BCE2F3927F2D9E700788007 /* RecordModel.xcdatamodeld in Sources */,
+				D6CB38DA2812721D0022D025 /* UIApplication+Extension.swift in Sources */,
 				3BBB641F27F55410006B5969 /* PlayView.swift in Sources */,
 				3BBB641927F3F5C8006B5969 /* ListViewModel.swift in Sources */,
 				3B0C87E827EBEC3C005E7537 /* ListView.swift in Sources */,

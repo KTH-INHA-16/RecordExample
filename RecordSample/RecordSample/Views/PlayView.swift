@@ -42,12 +42,28 @@ struct PlayView: View {
         }
         .onAppear{
             player.publish()
+            share(items: [player.fileData])
         }
         .onDisappear {
             player.cancel()
         }
         .navigationTitle(player.fileName)
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    @discardableResult
+    func share(items: [Any], excludedActivityTypes: [UIActivity.ActivityType]? = nil) -> Bool {
+        guard let source = UIApplication.shared.keyWindow?.rootViewController else {
+            return false
+        }
+        let vc = UIActivityViewController(
+            activityItems: items,
+            applicationActivities: nil
+        )
+        vc.excludedActivityTypes = excludedActivityTypes
+        vc.popoverPresentationController?.sourceView = source.view
+        source.present(vc, animated: true)
+        return true
     }
 }
 

@@ -14,6 +14,7 @@ final class AudioPlayer: NSObject, ObservableObject {
     private(set) var audioPlayer: AVAudioPlayer?
     private var cancellable: Cancellable?
     var isTaped: Bool = false
+    var fileData: Data = Data()
     @Published var fileName: String
     @Published var time: String = "00 : 00 / 00 : 00"
     @Published var progress: Double = 0.0
@@ -27,6 +28,18 @@ final class AudioPlayer: NSObject, ObservableObject {
     }
     
     func publish() {
+        guard let fileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+        
+        let url = fileUrl.appendingPathComponent(fileName)
+        
+        do {
+            fileData = try Data(contentsOf: url)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
         cancellable = Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()
             .sink { [unowned self] _ in
