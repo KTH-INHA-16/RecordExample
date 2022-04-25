@@ -21,7 +21,7 @@ final class ListViewModel: ObservableObject {
             return
         }
         
-        list = DataManager().fetch().map { value -> ListModel in
+        list = DataManager.shared.fetch().map { value -> ListModel in
             var url = directoryURL
             let title = value.file ?? ""
             url.appendPathComponent(title)
@@ -34,17 +34,23 @@ final class ListViewModel: ObservableObject {
         }.reversed()
     }
     
-    func delete(offset: Int?) {
-        guard let offset = offset, var directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+    func delete(object: Record) {
+        guard let file = object.file, var directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return
         }
         
-        directoryURL.appendPathComponent(list[offset].id)
-        print(offset, directoryURL.absoluteURL)
+        directoryURL.appendPathComponent(file)
         
         do {
+            DataManager.shared.remove(object: object, type: "Record")
             try FileManager.default.removeItem(at: directoryURL)
-            list.remove(at: offset)
+            
+            for item in list.enumerated() {
+                if item.element.id == file {
+                    list.remove(at: item.offset)
+                    break
+                }
+            }
         } catch {
             print(error.localizedDescription)
         }

@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct RecordSampleApp: App {
+    let manager = DataManager.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, manager.container.viewContext)
         }
     }
 }

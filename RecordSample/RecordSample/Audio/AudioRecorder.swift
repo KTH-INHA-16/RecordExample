@@ -15,7 +15,7 @@ final class AudioRecorder: NSObject, ObservableObject {
     private var mixerNode: AVAudioMixerNode?
     private var cancellable: AnyCancellable?
     private var fileName: String
-    let dataManager = DataManager()
+    let dataManager = DataManager.shared
     let objectWillChange = PassthroughSubject<AudioRecorder, Never>()
     @Published var authority = false
     @Published var recording = false {
@@ -81,27 +81,21 @@ final class AudioRecorder: NSObject, ObservableObject {
         let format = tapNode.outputFormat(forBus: 0)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMddhhmmssSSS"
-        var dateString = dateFormatter.string(from: Date())
+        let dateString = dateFormatter.string(from: Date())
         
         do {
-            var file = try AVAudioFile(forWriting: fileURL.appendingPathComponent(dateString), settings: format.settings)
+            let file = try AVAudioFile(forWriting: fileURL.appendingPathComponent(dateString), settings: format.settings)
             dataManager.save(attributes: ["file": dateString], type: "Record")
-            tapNode.installTap(onBus: 0, bufferSize: 4096, format: format) { buffer, time in
-                print(buffer.frameLength, time, file.length, 48000 * 10)
-                if file.length >= (48000 * 10) {
-                    do {
-                        dateString = dateFormatter.string(from: Date())
-                        file = try AVAudioFile(forWriting: fileURL.appendingPathComponent(dateString), settings: format.settings)
-                    } catch {
-                        print(error.localizedDescription)
-                    }
-                }
+            tapNode.installTap(onBus: 0, bufferSize: 8192, format: format) { buffer, time in
                 try? file.write(from: buffer)
+                if file.length >= (Int(format.sampleRate) * 10 + 256) {
+                    self.stopRecording()
+                }
             }
             try audioEngine.start()
         } catch {
             print(error.localizedDescription)
-        }
+       }
     }
     
     func stopRecording() {

@@ -7,10 +7,13 @@
 
 import Foundation
 import CoreData
-import Combine
 
-final class DataManager: ObservableObject {
-    private lazy var container: NSPersistentContainer = {
+final class DataManager {
+    static let shared = DataManager()
+    
+    private init() {}
+    
+    lazy var container: NSPersistentContainer = {
        let container = NSPersistentContainer(name: "RecordModel")
         
         container.loadPersistentStores { _, error in
@@ -41,6 +44,15 @@ final class DataManager: ObservableObject {
             } catch let error {
                 fatalError(error.localizedDescription)
             }
+        }
+    }
+    
+    func remove(object: NSManagedObject, type name: String) {
+        do {
+            self.container.viewContext.delete(object)
+            try self.container.viewContext.save()
+        } catch {
+            print(error.localizedDescription)
         }
     }
     

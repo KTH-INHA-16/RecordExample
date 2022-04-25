@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ListView: View {
     @ObservedObject var viewModel: ListViewModel
+    @FetchRequest(entity: Record.entity(), sortDescriptors: []) var list: FetchedResults<Record>
     
     var body: some View {
         NavigationView {
@@ -29,11 +31,15 @@ struct ListView: View {
             .edgesIgnoringSafeArea(.trailing)
             .listStyle(.grouped)
             .navigationTitle("Records")
-        }
+        }.environment(\.managedObjectContext, DataManager.shared.container.viewContext)
     }
     
     func removeRows(at offsets: IndexSet) {
-        viewModel.delete(offset: offsets.first)
+        guard let index = offsets.first else {
+             return
+        }
+        
+        viewModel.delete(object: list[index])
     }
 }
 
