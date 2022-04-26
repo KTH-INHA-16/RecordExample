@@ -39,10 +39,25 @@ struct PlayView: View {
                         Circle().stroke(.orange, lineWidth: 2)
                     }
             })
+            .padding(.bottom, 20.0)
+            
+            HStack {
+                Spacer()
+                
+                Button("AVAudioFile", action: {
+                    share(items: [player.fileData])
+                }).padding(.trailing, 15.0)
+                
+                Button("BinaryFile", action: {
+                    share(items: [player.binaryData])
+                }).padding(.leading, 15.0)
+                
+                Spacer()
+                
+            }
         }
         .onAppear{
             player.publish()
-            share(items: [player.fileData])
         }
         .onDisappear {
             player.cancel()

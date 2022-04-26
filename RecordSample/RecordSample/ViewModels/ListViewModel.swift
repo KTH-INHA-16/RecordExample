@@ -51,6 +51,8 @@ final class ListViewModel: ObservableObject {
                     break
                 }
             }
+            
+            try FileManager.default.removeItem(at: directoryURL.appendingPathComponent("2"))
         } catch {
             print(error.localizedDescription)
         }

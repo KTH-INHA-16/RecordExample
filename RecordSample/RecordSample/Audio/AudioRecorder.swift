@@ -86,11 +86,20 @@ final class AudioRecorder: NSObject, ObservableObject {
         do {
             let file = try AVAudioFile(forWriting: fileURL.appendingPathComponent(dateString), settings: format.settings)
             dataManager.save(attributes: ["file": dateString], type: "Record")
-            tapNode.installTap(onBus: 0, bufferSize: 8192, format: format) { buffer, time in
-                try? file.write(from: buffer)
-                if file.length >= (Int(format.sampleRate) * 10 + 256) {
-                    self.stopRecording()
+            tapNode.installTap(onBus: 0, bufferSize: 5000, format: format) { buffer, time in
+                let channels = UnsafeBufferPointer(start: buffer.floatChannelData, count: 1)
+                let floatBuffer = UnsafeBufferPointer(start: channels[0], count: Int(buffer.frameLength))
+                let data = Data(buffer: floatBuffer)
+                if file.length == 0 {
+                    try? file.write(from: buffer)
+                    try? data.write(to: fileURL.appendingPathComponent(dateString+"2"))
                 }
+                // 19200
+                //self.stopRecording()
+                print(buffer.frameCapacity, buffer.frameLength)
+//                if file.length >= (Int(format.sampleRate) * 10 ) {
+//                    self.stopRecording()
+//                }
             }
             try audioEngine.start()
         } catch {

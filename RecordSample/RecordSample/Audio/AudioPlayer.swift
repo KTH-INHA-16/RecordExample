@@ -15,6 +15,7 @@ final class AudioPlayer: NSObject, ObservableObject {
     private var cancellable: Cancellable?
     var isTaped: Bool = false
     var fileData: Data = Data()
+    var binaryData: Data = Data()
     @Published var fileName: String
     @Published var time: String = "00 : 00 / 00 : 00"
     @Published var progress: Double = 0.0
@@ -36,6 +37,7 @@ final class AudioPlayer: NSObject, ObservableObject {
         
         do {
             fileData = try Data(contentsOf: url)
+            binaryData = try Data(contentsOf: fileUrl.appendingPathComponent(fileName+"2"))
         } catch {
             print(error.localizedDescription)
         }
@@ -67,7 +69,10 @@ final class AudioPlayer: NSObject, ObservableObject {
     }
     
     func update() {
-        let current = duration * progress
+        var current = duration * progress
+        if current.isNaN {
+           current = 0
+        }
         time = "\(convert(time: Int(current))) / \(convert(time: Int(duration)))"
     }
     
