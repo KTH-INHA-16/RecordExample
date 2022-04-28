@@ -24,6 +24,10 @@
 		3BCE2F3C27F2DA1D00788007 /* Record+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F3A27F2DA1D00788007 /* Record+CoreDataClass.swift */; };
 		3BCE2F3D27F2DA1D00788007 /* Record+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F3B27F2DA1D00788007 /* Record+CoreDataProperties.swift */; };
 		3BCE2F4227F2DAC100788007 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE2F4127F2DAC100788007 /* DataManager.swift */; };
+		C4759792698CBE6A17D97A85 /* Pods_RecordSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081BF4161AAE5A918527001E /* Pods_RecordSample.framework */; };
+		D60A3704281A697F00544215 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D60A3703281A697F00544215 /* libz.tbd */; };
+		D60A3706281A698700544215 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D60A3705281A698700544215 /* libbz2.tbd */; };
+		D60A3708281A699000544215 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D60A3707281A699000544215 /* libiconv.tbd */; };
 		D65BD4B128053CDE00501B8E /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D65BD4B028053CDE00501B8E /* music.mp3 */; };
 		D691622D27FBD25C00B2F88E /* PlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D691622C27FBD25C00B2F88E /* PlayViewModel.swift */; };
 		D691622F27FBDFA000B2F88E /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D691622E27FBDFA000B2F88E /* AudioPlayer.swift */; };
@@ -31,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		081BF4161AAE5A918527001E /* Pods_RecordSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecordSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B0C87D427EBE9D1005E7537 /* RecordSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecordSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B0C87D727EBE9D1005E7537 /* RecordSampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordSampleApp.swift; sourceTree = "<group>"; };
 		3B0C87D927EBE9D1005E7537 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -49,6 +54,11 @@
 		3BCE2F3A27F2DA1D00788007 /* Record+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Record+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3BCE2F3B27F2DA1D00788007 /* Record+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Record+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3BCE2F4127F2DAC100788007 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		742CDBD90A975576B275C323 /* Pods-RecordSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecordSample.debug.xcconfig"; path = "Target Support Files/Pods-RecordSample/Pods-RecordSample.debug.xcconfig"; sourceTree = "<group>"; };
+		A19B644076C06AB89501678D /* Pods-RecordSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecordSample.release.xcconfig"; path = "Target Support Files/Pods-RecordSample/Pods-RecordSample.release.xcconfig"; sourceTree = "<group>"; };
+		D60A3703281A697F00544215 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D60A3705281A698700544215 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
+		D60A3707281A699000544215 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		D65BD4B028053CDE00501B8E /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		D691622C27FBD25C00B2F88E /* PlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewModel.swift; sourceTree = "<group>"; };
 		D691622E27FBDFA000B2F88E /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
@@ -60,6 +70,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D60A3708281A699000544215 /* libiconv.tbd in Frameworks */,
+				D60A3706281A698700544215 /* libbz2.tbd in Frameworks */,
+				D60A3704281A697F00544215 /* libz.tbd in Frameworks */,
+				C4759792698CBE6A17D97A85 /* Pods_RecordSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +85,8 @@
 			children = (
 				3B0C87D627EBE9D1005E7537 /* RecordSample */,
 				3B0C87D527EBE9D1005E7537 /* Products */,
+				D60A3702281A697E00544215 /* Frameworks */,
+				3B99FF442A984B6D4465979E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +153,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3B99FF442A984B6D4465979E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				742CDBD90A975576B275C323 /* Pods-RecordSample.debug.xcconfig */,
+				A19B644076C06AB89501678D /* Pods-RecordSample.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		3BBB641627F3F5B0006B5969 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +191,17 @@
 			path = Record;
 			sourceTree = "<group>";
 		};
+		D60A3702281A697E00544215 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D60A3707281A699000544215 /* libiconv.tbd */,
+				D60A3705281A698700544215 /* libbz2.tbd */,
+				D60A3703281A697F00544215 /* libz.tbd */,
+				081BF4161AAE5A918527001E /* Pods_RecordSample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D6CB38D82812720A0022D025 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +217,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3B0C87E227EBE9D3005E7537 /* Build configuration list for PBXNativeTarget "RecordSample" */;
 			buildPhases = (
+				FA93466734F082E0AAA4B4ED /* [CP] Check Pods Manifest.lock */,
 				3B0C87D027EBE9D1005E7537 /* Sources */,
 				3B0C87D127EBE9D1005E7537 /* Frameworks */,
 				3B0C87D227EBE9D1005E7537 /* Resources */,
@@ -239,6 +276,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FA93466734F082E0AAA4B4ED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RecordSample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3B0C87D027EBE9D1005E7537 /* Sources */ = {
@@ -387,6 +449,7 @@
 		};
 		3B0C87E327EBE9D3005E7537 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 742CDBD90A975576B275C323 /* Pods-RecordSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -396,6 +459,7 @@
 				DEVELOPMENT_TEAM = M49GZVCJ3B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "RecordSample/FFmpeg-iOS/include";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "녹음을 위해 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -405,6 +469,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RecordSample/FFmpeg-iOS/lib",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Kim.RecordSample;
@@ -417,6 +485,7 @@
 		};
 		3B0C87E427EBE9D3005E7537 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A19B644076C06AB89501678D /* Pods-RecordSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -426,6 +495,7 @@
 				DEVELOPMENT_TEAM = M49GZVCJ3B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "RecordSample/FFmpeg-iOS/include";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "녹음을 위해 권한이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -435,6 +505,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RecordSample/FFmpeg-iOS/lib",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Kim.RecordSample;
