@@ -18,7 +18,7 @@ final class RecordViewModel: ObservableObject {
     func set(from date: Date) {
         let interval = Int(date.timeIntervalSince(self.date))
         let seconds = String(interval % 60).count == 1 ? "0\(String(interval % 60))" : "\(String(interval % 60))"
-        let minutes = String(interval / 60).count == 1 ? "0\(String(interval / 60))" : "\(String(interval / 60))"
+        let minutes = String((interval / 60) % 60).count == 1 ? "0\(String((interval / 60) % 60))" : "\(String((interval / 60) % 60))"
         let hours = String(interval / 3600).count == 1 ? "0\(String(interval / 3600))" : "\(String(interval / 3600))"
         
         text = hours + " : " + minutes + " : " + seconds
