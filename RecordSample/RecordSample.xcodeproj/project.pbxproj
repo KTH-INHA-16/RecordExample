@@ -16,6 +16,7 @@
 		3B0C87EC27EBEE50005E7537 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C87EB27EBEE50005E7537 /* AudioRecorder.swift */; };
 		3B0C87EF27EBF4E4005E7537 /* RecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C87EE27EBF4E4005E7537 /* RecordModel.swift */; };
 		3B39EF2827EC34900084FAAC /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B39EF2727EC34900084FAAC /* RecordViewModel.swift */; };
+		3B6CD6BD2820003A00EE8202 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CD6BC2820003A00EE8202 /* AudioKit */; };
 		3BBB641927F3F5C8006B5969 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBB641827F3F5C8006B5969 /* ListViewModel.swift */; };
 		3BBB641B27F400C9006B5969 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBB641A27F400C9006B5969 /* ListModel.swift */; };
 		3BBB641D27F54A55006B5969 /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBB641C27F54A55006B5969 /* ListRowView.swift */; };
@@ -72,6 +73,7 @@
 			files = (
 				D60A3708281A699000544215 /* libiconv.tbd in Frameworks */,
 				D60A3706281A698700544215 /* libbz2.tbd in Frameworks */,
+				3B6CD6BD2820003A00EE8202 /* AudioKit in Frameworks */,
 				D60A3704281A697F00544215 /* libz.tbd in Frameworks */,
 				C4759792698CBE6A17D97A85 /* Pods_RecordSample.framework in Frameworks */,
 			);
@@ -227,6 +229,9 @@
 			dependencies = (
 			);
 			name = RecordSample;
+			packageProductDependencies = (
+				3B6CD6BC2820003A00EE8202 /* AudioKit */,
+			);
 			productName = RecordSample;
 			productReference = 3B0C87D427EBE9D1005E7537 /* RecordSample.app */;
 			productType = "com.apple.product-type.application";
@@ -255,6 +260,9 @@
 				Base,
 			);
 			mainGroup = 3B0C87CB27EBE9D1005E7537;
+			packageReferences = (
+				3B6CD6BB2820003A00EE8202 /* XCRemoteSwiftPackageReference "AudioKit" */,
+			);
 			productRefGroup = 3B0C87D527EBE9D1005E7537 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -541,6 +549,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3B6CD6BB2820003A00EE8202 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3B6CD6BC2820003A00EE8202 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B6CD6BB2820003A00EE8202 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3BCE2F3727F2D9E700788007 /* RecordModel.xcdatamodeld */ = {

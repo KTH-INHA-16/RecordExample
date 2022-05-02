@@ -33,10 +33,10 @@ final class AudioPlayer: NSObject, ObservableObject {
             return
         }
         
-        let url = fileUrl.appendingPathComponent(fileName)
+        let url = fileUrl.appendingPathComponent(fileName+"3.mp3")
         
         originURL = URL(fileURLWithPath: url.path)
-        fileURL = URL(fileURLWithPath: url.path+"2.mp3")
+        fileURL = URL(fileURLWithPath: url.path+"3.mp3")
         
         cancellable = Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()
