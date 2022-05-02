@@ -45,11 +45,11 @@ struct PlayView: View {
                 Spacer()
                 
                 Button("AVAudioFile", action: {
-                    share(items: [player.fileData])
+                    share(items: [player.originURL])
                 }).padding(.trailing, 15.0)
                 
-                Button("BinaryFile", action: {
-                    share(items: [player.binaryData])
+                Button("MP3File", action: {
+                    share(items: [player.fileURL])
                 }).padding(.leading, 15.0)
                 
                 Spacer()

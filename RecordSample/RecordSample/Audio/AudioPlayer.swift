@@ -14,8 +14,8 @@ final class AudioPlayer: NSObject, ObservableObject {
     private(set) var audioPlayer: AVAudioPlayer?
     private var cancellable: Cancellable?
     var isTaped: Bool = false
-    var fileData: Data = Data()
-    var binaryData: Data = Data()
+    var fileURL: URL = URL(fileURLWithPath: "")
+    var originURL: URL = URL(fileURLWithPath: "")
     @Published var fileName: String
     @Published var time: String = "00 : 00 / 00 : 00"
     @Published var progress: Double = 0.0
@@ -35,12 +35,8 @@ final class AudioPlayer: NSObject, ObservableObject {
         
         let url = fileUrl.appendingPathComponent(fileName)
         
-        do {
-            fileData = try Data(contentsOf: url)
-            binaryData = try Data(contentsOf: fileUrl.appendingPathComponent(fileName+"2"))
-        } catch {
-            print(error.localizedDescription)
-        }
+        originURL = URL(fileURLWithPath: url.path)
+        fileURL = URL(fileURLWithPath: url.path+"2.mp3")
         
         cancellable = Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()

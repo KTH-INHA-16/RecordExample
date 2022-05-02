@@ -87,17 +87,20 @@ final class AudioRecorder: NSObject, ObservableObject {
         do {
             let file = try AVAudioFile(forWriting: fileURL.appendingPathComponent(dateString), settings: format.settings)
             dataManager.save(attributes: ["file": dateString], type: "Record")
-            tapNode.installTap(onBus: 0, bufferSize: 5000, format: format) { buffer, time in
-                let channels = UnsafeBufferPointer(start: buffer.floatChannelData, count: 1)
-                let floatBuffer = UnsafeBufferPointer(start: channels[0], count: Int(buffer.frameLength))
-                let data = Data(buffer: floatBuffer)
-                if file.length == 0 {
-                    try? file.write(from: buffer)
-                    try? data.write(to: fileURL.appendingPathComponent(dateString+"2"))
+            tapNode.installTap(onBus: 0, bufferSize: 4800, format: format) { buffer, time in
+                //let channels = UnsafeBufferPointer(start: buffer.floatChannelData, count: 1)
+                //let floatBuffer = UnsafeBufferPointer(start: channels[0], count: Int(buffer.frameLength))
+                //let data = Data(buffer: floatBuffer)
+                try? file.write(from: buffer)
+                
+                if file.length >= 48000 * 10 {
+                    //try? data.write(to: fileURL.appendingPathComponent(dateString+"2"))
+                    self.convert(inPcmPath: file.url.path, outMp3Path: file.url.path+"2.mp3")
+                    self.stopRecording()
                 }
                 // 19200
                 //self.stopRecording()
-                print(buffer.frameCapacity, buffer.frameLength)
+                //print(buffer.frameCapacity, buffer.frameLength)
 //                if file.length >= (Int(format.sampleRate) * 10 ) {
 //                    self.stopRecording()
 //                }
@@ -114,62 +117,63 @@ final class AudioRecorder: NSObject, ObservableObject {
         audioEngine?.stop()
     }
     
-    func convert() {
-//        DispatchQueue.global().async {
-//            let lame = lame_init()
-//            lame_set_in_samplerate(lame, 44100)
-//            lame_set_out_samplerate(lame, 0)
-//            lame_set_brate(lame, 0)
-//            lame_set_quality(lame, 4)
-//            lame_set_VBR(lame, vbr_default)
-//            lame_init_params(lame)
-//
-//            let pcmFile: UnsafeMutablePointer<FILE> = fopen(inPcmPath, "rb")
-//            fseek(pcmFile, 0 , SEEK_END)
-//            let fileSize = ftell(pcmFile)
-//            // Skip file header.
-//            let fileHeader = 4 * 1024
-//            fseek(pcmFile, fileHeader, SEEK_SET)
-//
-//            let mp3File: UnsafeMutablePointer<FILE> = fopen(outMp3Path, "wb")
-//
-//            let pcmSize = 1024 * 8
-//            let pcmbuffer = UnsafeMutablePointer<Int16>.allocate(capacity: Int(pcmSize * 2))
-//
-//            let mp3Size: Int32 = 1024 * 8
-//            let mp3buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: Int(mp3Size))
-//
-//            var write: Int32 = 0
-//            var read = 0
-//
-//            repeat {
-//
-//                let size = MemoryLayout<Int16>.size * 2
-//                read = fread(pcmbuffer, size, pcmSize, pcmFile)
-//                // Progress
-//                if read != 0 {
-//                    let progress = Float(ftell(pcmFile)) / Float(fileSize)
-//                    DispatchQueue.main.sync { onProgress(progress) }
-//                }
-//
-//                if read == 0 {
-//                    write = lame_encode_flush(lame, mp3buffer, mp3Size)
-//                } else {
-//                    write = lame_encode_buffer_interleaved(lame, pcmbuffer, Int32(read), mp3buffer, mp3Size)
-//                }
-//
-//                fwrite(mp3buffer, Int(write), 1, mp3File)
-//
-//            } while read != 0
-//
-//            // Clean up
-//            lame_close(lame)
-//            fclose(mp3File)
-//            fclose(pcmFile)
-//
-//            pcmbuffer.deallocate()
-//            mp3buffer.deallocate()
-//        }
+    func convert(inPcmPath: String, outMp3Path: String) {
+        DispatchQueue.global().async {
+            let lame = lame_init()
+            lame_set_in_samplerate(lame, 48000)
+            lame_set_out_samplerate(lame, 0)
+            lame_set_brate(lame, 0)
+            lame_set_quality(lame, 4)
+            lame_set_VBR(lame, vbr_default)
+            lame_init_params(lame)
+
+            let pcmFile: UnsafeMutablePointer<FILE> = fopen(inPcmPath, "rb")
+            fseek(pcmFile, 0 , SEEK_END)
+            let fileSize = ftell(pcmFile)
+            // Skip file header.
+            let fileHeader = 4 * 1024
+            fseek(pcmFile, fileHeader, SEEK_SET)
+
+            let mp3File: UnsafeMutablePointer<FILE> = fopen(outMp3Path, "wb")
+
+            let pcmSize = 1024 * 8
+            let pcmbuffer = UnsafeMutablePointer<Int16>.allocate(capacity: Int(pcmSize * 2))
+
+            let mp3Size: Int32 = 1024 * 8
+            let mp3buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: Int(mp3Size))
+
+            var write: Int32 = 0
+            var read = 0
+
+            repeat {
+
+                let size = MemoryLayout<Int16>.size * 2
+                read = fread(pcmbuffer, size, pcmSize, pcmFile)
+                // Progress
+                if read != 0 {
+                    let progress = Float(ftell(pcmFile)) / Float(fileSize)
+                    print(progress)
+                    //DispatchQueue.main.sync { onProgress(progress) }
+                }
+
+                if read == 0 {
+                    write = lame_encode_flush(lame, mp3buffer, mp3Size)
+                } else {
+                    write = lame_encode_buffer_interleaved(lame, pcmbuffer, Int32(read), mp3buffer, mp3Size)
+                }
+
+                fwrite(mp3buffer, Int(write), 1, mp3File)
+
+            } while read != 0
+
+            // Clean up
+            lame_close(lame)
+            fclose(mp3File)
+            fclose(pcmFile)
+
+            pcmbuffer.deallocate()
+            mp3buffer.deallocate()
+        }
     }
     
     private func configureNodes() {
