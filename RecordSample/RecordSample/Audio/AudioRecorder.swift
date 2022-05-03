@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import AVFoundation
 import lame
+import mobileffmpeg
 import AudioKit
 
 final class AudioRecorder: NSObject, ObservableObject {
@@ -126,69 +127,18 @@ final class AudioRecorder: NSObject, ObservableObject {
         options.eraseFile = true
 
         let converter = FormatConverter(inputURL: URL(fileURLWithPath: inPcmPath), outputURL: URL(fileURLWithPath: inPcmPath+"2.wav"), options: options)
-        
+
         converter.start { error in
-            guard let error = error else {
-                DispatchQueue.global().async {
-                    let lame = lame_init()
-                    lame_set_in_samplerate(lame, 48000)
-                    lame_set_out_samplerate(lame, 0)
-                    lame_set_brate(lame, 0)
-                    lame_set_quality(lame, 4)
-                    lame_set_VBR(lame, vbr_default)
-                    lame_init_params(lame)
-
-                    let pcmFile: UnsafeMutablePointer<FILE> = fopen(inPcmPath, "rb")
-                    fseek(pcmFile, 0 , SEEK_END)
-                    let fileSize = ftell(pcmFile)
-                    // Skip file header.
-                    let fileHeader = 4 * 1024
-                    fseek(pcmFile, fileHeader, SEEK_SET)
-
-                    let mp3File: UnsafeMutablePointer<FILE> = fopen(outMp3Path, "wb")
-
-                    let pcmSize = 1024 * 8
-                    let pcmbuffer = UnsafeMutablePointer<Int16>.allocate(capacity: Int(pcmSize * 2))
-
-                    let mp3Size: Int32 = 1024 * 8
-                    let mp3buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: Int(mp3Size))
-
-                    var write: Int32 = 0
-                    var read = 0
-
-                    repeat {
-
-                        let size = MemoryLayout<Int16>.size * 2
-                        read = fread(pcmbuffer, size, pcmSize, pcmFile)
-                        // Progress
-                        if read != 0 {
-                            let progress = Float(ftell(pcmFile)) / Float(fileSize)
-                            print(progress)
-                            //DispatchQueue.main.sync { onProgress(progress) }
-                        }
-
-                        if read == 0 {
-                            write = lame_encode_flush(lame, mp3buffer, mp3Size)
-                        } else {
-                            write = lame_encode_buffer_interleaved(lame, pcmbuffer, Int32(read), mp3buffer, mp3Size)
-                        }
-
-                        fwrite(mp3buffer, Int(write), 1, mp3File)
-
-                    } while read != 0
-
-                    // Clean up
-                    lame_close(lame)
-                    fclose(mp3File)
-                    fclose(pcmFile)
-
-                    pcmbuffer.deallocate()
-                    mp3buffer.deallocate()
-                }
-                
+            if let error = error {
+                print(error.localizedDescription)
                 return
             }
-            print(error.localizedDescription)
+            
+            let absoluteWAV = URL(fileURLWithPath: inPcmPath+"2.wav").absoluteString
+            let absoluteMP3 = URL(fileURLWithPath: outMp3Path).absoluteString
+            DispatchQueue.global().async {
+                MobileFFmpeg.execute("-i \(absoluteWAV) -vn -ar 16000 -ac 1 -b:a 128k \(absoluteMP3)")
+            }
         }
     }
     
@@ -198,13 +148,13 @@ final class AudioRecorder: NSObject, ObservableObject {
         }
         
         let inputNode = audioEngine.inputNode
-        let inputFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 1, interleaved: false)
+        let inputFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 1, interleaved: true)
         //let inputFormat = inputNode.outputFormat(forBus: 0)
         audioEngine.connect(inputNode, to: mixerNode, format: inputFormat)
         
         let mainMixerNode = audioEngine.mainMixerNode
 
-        let mixerFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 1, interleaved: false)
+        let mixerFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 1, interleaved: true)
         audioEngine.connect(mixerNode, to: mainMixerNode, format: mixerFormat)
     }
 }

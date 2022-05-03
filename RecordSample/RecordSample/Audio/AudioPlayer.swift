@@ -33,10 +33,10 @@ final class AudioPlayer: NSObject, ObservableObject {
             return
         }
         
-        let url = fileUrl.appendingPathComponent(fileName+"3.mp3")
+        let url = fileUrl.appendingPathComponent(fileName)
         
         originURL = URL(fileURLWithPath: url.path)
-        fileURL = URL(fileURLWithPath: url.path+"3.mp3")
+        fileURL = fileUrl.appendingPathComponent(fileName+"3.mp3")
         
         cancellable = Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()
@@ -83,7 +83,7 @@ final class AudioPlayer: NSObject, ObservableObject {
         guard var directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return
         }
-        directoryURL.appendPathComponent(fileName)
+        directoryURL.appendPathComponent(fileName+"3.mp3")
         
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: directoryURL)

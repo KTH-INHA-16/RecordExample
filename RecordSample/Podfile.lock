@@ -1,16 +1,20 @@
 PODS:
   - lame (1.0.0)
+  - mobile-ffmpeg-full (4.4)
 
 DEPENDENCIES:
   - lame
+  - mobile-ffmpeg-full
 
 SPEC REPOS:
   trunk:
     - lame
+    - mobile-ffmpeg-full
 
 SPEC CHECKSUMS:
   lame: 1edb6e24a4e2056b9d1fd90c9fddc10c9aff875d
+  mobile-ffmpeg-full: 505c583d91ac1c4fb2b015787e69d83f83fb8f29
 
-PODFILE CHECKSUM: 4d7a801b5725f367e59d61a5dbcdedb92e266641
+PODFILE CHECKSUM: e9ab41d0a6f91f066009fab0541001de5ae9e634
 
 COCOAPODS: 1.11.3

@@ -7,5 +7,6 @@ target 'RecordSample' do
 
   # Pods for RecordSample
   pod 'lame'
+  pod 'mobile-ffmpeg-full'
 
 end
