@@ -87,6 +87,7 @@ final class AudioRecorder: NSObject, ObservableObject {
         
         do {
             let file = try AVAudioFile(forWriting: fileURL.appendingPathComponent(dateString), settings: format.settings)
+            print(format.settings)
             dataManager.save(attributes: ["file": dateString], type: "Record")
             tapNode.installTap(onBus: 0, bufferSize: 4800, format: format) { buffer, time in
                 //let channels = UnsafeBufferPointer(start: buffer.floatChannelData, count: 1)
@@ -137,7 +138,7 @@ final class AudioRecorder: NSObject, ObservableObject {
             let absoluteWAV = URL(fileURLWithPath: inPcmPath+"2.wav").absoluteString
             let absoluteMP3 = URL(fileURLWithPath: outMp3Path).absoluteString
             DispatchQueue.global().async {
-                MobileFFmpeg.execute("-i \(absoluteWAV) -vn -ar 16000 -ac 1 -b:a 128k \(absoluteMP3)")
+                MobileFFmpeg.execute("-y -i \(absoluteWAV) -vn -ar 48000 -ac 1 -b:a 128k -f mp3 \(absoluteMP3)")
             }
         }
     }
