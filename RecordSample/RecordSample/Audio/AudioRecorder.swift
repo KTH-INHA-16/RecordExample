@@ -149,13 +149,13 @@ final class AudioRecorder: NSObject, ObservableObject {
         }
         
         let inputNode = audioEngine.inputNode
-        let inputFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 1, interleaved: true)
+        let inputFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 2, interleaved: false)
         //let inputFormat = inputNode.outputFormat(forBus: 0)
         audioEngine.connect(inputNode, to: mixerNode, format: inputFormat)
         
         let mainMixerNode = audioEngine.mainMixerNode
 
-        let mixerFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 1, interleaved: true)
+        let mixerFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 48000, channels: 2, interleaved: false)
         audioEngine.connect(mixerNode, to: mainMixerNode, format: mixerFormat)
     }
 }
